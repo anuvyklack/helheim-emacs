@@ -1,0 +1,35 @@
+* Helheim Emacs
+
+#+begin_quote
+This is the realm of Hel
+#+end_quote
+
+Helheim is Emacs distributing build around [[https://github.com/anuvyklack/hel][Hel]] package. The original idea behind
+it was a s
+
+** Installation
+
+#+begin_quote
+GNU Emacs 29.1 or later is required
+#+end_quote
+
+1. Donwload and install "Symbols Nerd Font" from [[https://www.nerdfonts.com/][www.nerdfonts.com]]. This font
+   contains only nerd font icons.
+
+2. Clone this repo.
+
+   You can clone it in =~/.config/emacs= so Emacs can catch it on startup:
+   #+begin_src sh
+   git clone https://github.com/anuvyklack/emacs-helheim.git -- ~/.config/emacs
+   #+end_src
+
+   or in any other location, and pass path to it to Emacs explicitly:
+   #+begin_src sh
+   emacs --init-directory <path/to/emacs-helheim>
+   #+end_src
+
+This approach gives you any subset of Helheim functionallyti you want
+to be more bare-boned
+I decided not to reinvent the wheel, Emacs Lisp already has packages
+all Helheim modules are just Emacs packages that you can ~require~ any one you want.
+You are in full controll. Only you decide what is going to =init.el= file.

@@ -1,0 +1,4 @@
+*.elc
+init.el
+custom.el
+var/
