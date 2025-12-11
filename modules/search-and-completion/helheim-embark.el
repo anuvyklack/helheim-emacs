@@ -4,11 +4,25 @@
 (require 'hel-core)
 
 ;;; Keybindings
-;; Original Embark keybindings are tailored for Emacs.
-;; Reconfigure them for Hel.
+
+(hel-keymap-global-set
+  "C-<return>" 'embark-act
+  "C-<m>" 'embark-act
+  "M-m"   'embark-dwim)
+
+;; On QWERTY keyboard c, v, b keys are next to each other.
+(hel-keymap-set minibuffer-local-map
+  "C-c C-c" 'embark-export
+  "C-c C-v" 'embark-collect
+  "C-c C-b" 'embark-become)
+
+;;;; Embark menus keymaps
+;;
+;; Original Embark keybindings are tailored for Emacs. Lets reconfigure them for
+;; Hel.
 ;;
 ;; Embark Keymap Hierarchy
-;;
+;; -----------------------
 ;; - embark-meta-map
 ;;   + embark-general-map
 ;;     + embark-region-map
@@ -39,17 +53,23 @@
 ;;   - embark-become-file+buffer-map
 ;;   - embark-become-shell-command-map
 ;;   - embark-become-match-map
-
-(hel-keymap-global-set
-  "C-<return>" 'embark-act
-  "C-<m>" 'embark-act
-  "M-m"   'embark-dwim)
-
-;; On QWERTY keyboard c, v, b keys are next to each other.
-(hel-keymap-set minibuffer-local-map
-  "C-c C-c" 'embark-export
-  "C-c C-v" 'embark-collect
-  "C-c C-b" 'embark-become)
+;;
+;; Embark Org extension
+;; --------------------
+;; - embark-meta-map
+;;   - embark-general-map
+;;     - embark-heading-map
+;;       - embark-org-heading-map
+;;     - embark-org-table-cell-map
+;;     - embark-org-table-map
+;;     - embark-org-link-map
+;;     - embark-org-src-block-map
+;;     - embark-org-inline-src-block-map
+;;     - embark-org-babel-call-map
+;;     - embark-org-item-map
+;;     - embark-org-plain-list-map
+;;     - embark-org-export-in-place-map
+;; - embark-org-link-copy-map
 
 (with-eval-after-load 'embark
   (hel-keymap-set embark-general-map
@@ -90,11 +110,14 @@
     (hel-keymap-set embark-symbol-map
       "h" 'helpful-symbol))
 
+  ;; (hel-keymap-set embark-expression-map
+  ;;   "n" 'forward-list
+  ;;   "N" 'backward-list
+  ;;   "d" 'kill-region ; "k"
+  ;;   "k"  nil)
+
   (hel-keymap-set embark-expression-map
-    "n" 'forward-list
-    "N" 'backward-list
-    "d" 'kill-region ; "k"
-    "k"  nil)
+    "k" nil)
 
   (hel-keymap-set embark-defun-map
     "N" nil) ; `narrow-to-defun'
