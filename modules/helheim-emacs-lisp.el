@@ -31,6 +31,8 @@
 (hel-keymap-set lisp-mode-shared-map :state 'insert
   "C-h" 'backward-delete-char-untabify)
 
+(hel-keymap-global-set "<remap> <eval-expression>" 'pp-eval-expression)
+
 ;;; Config
 
 ;; ;; Treat `-' char as part of the word on `w', `e', `b', motions.
@@ -82,6 +84,11 @@
                  elisp-refs-next-match
                  elisp-refs-prev-match))
     (hel-advice-add cmd :around #'hel-jump-command-a)))
+
+(use-package edebug
+  :custom
+  (edebug-print-length 10)
+  (edebug-print-level 3))
 
 ;;;; Go to definition
 
