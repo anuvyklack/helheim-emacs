@@ -1,0 +1,103 @@
+;;; helheim-deadgrep.el -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+(require 'hel-macros)
+(require 'hel-core)
+
+;;; Keybindings
+
+;; <leader> s
+(hel-keymap-set search-map
+  "s" 'deadgrep)
+
+(with-eval-after-load 'deadgrep
+  (hel-keymap-set deadgrep-mode-map
+    "i"   'deadgrep-edit-mode
+
+    "a"   'deadgrep-incremental ; "a" for amend
+    "g"    nil                  ; unbind `deadgrep-restart'
+    "g r" 'deadgrep-restart     ; also "C-w r"
+
+    "RET" 'deadgrep-visit-result-other-window
+
+    "o"   '+deadgrep-show-result-other-window
+    "C-o" '+deadgrep-show-result-other-window
+
+    "n"   'deadgrep-forward-match
+    "N"   'deadgrep-backward-match
+
+    "C-j" '+deadgrep-forward-match-show-other-window
+    "C-k" '+deadgrep-backward-match-show-other-window
+
+    "}"   'deadgrep-forward-filename
+    "{"   'deadgrep-backward-filename
+    "] p" 'deadgrep-forward-filename
+    "[ p" 'deadgrep-backward-filename
+
+    "z j" 'deadgrep-forward-filename
+    "z k" 'deadgrep-backward-filename
+    "z u" 'deadgrep-parent-directory)
+
+  (hel-keymap-set deadgrep-edit-mode-map :state 'normal
+    "<escape>" 'deadgrep-mode
+    "z x" 'deadgrep-mode
+    "Z Z" 'deadgrep-mode
+    "RET" 'deadgrep-visit-result-other-window
+
+    ;; Commands bound to these keys have no sense for Deadgrep.
+    "o"   'undefined
+    "O"   'undefined
+    "J"   'undefined))
+
+;;; Config
+
+(elpaca deadgrep)
+
+;; (add-hook 'deadgrep-mode-hook #'next-error-follow-minor-mode)
+(add-hook 'deadgrep-mode-hook
+          (defun hel--deadgrep-mode-hook ()
+            ;; TODO: upstream this
+            (setq-local revert-buffer-function (lambda (&rest _)
+                                                 (deadgrep-restart)))))
+
+;; TODO: upstream this
+(dolist (fun '(deadgrep
+               deadgrep-search-term))
+  (advice-add fun :after 'helheim-deadgrep-set-list-buffers-directory-a))
+(defun helheim-deadgrep-set-list-buffers-directory-a (&rest _)
+  "Set `list-buffers-directory' to search query so it displays nicely in Ibuffer."
+  (setq-local list-buffers-directory
+              (format "query: %s" deadgrep--search-term)))
+
+(hel-advice-add 'deadgrep-mode :before #'hel-deactivate-mark-a)
+(hel-advice-add 'deadgrep-mode :before #'hel-delete-all-fake-cursors)
+
+(dolist (cmd '(deadgrep-visit-result
+               deadgrep-visit-result-other-window))
+  (hel-advice-add cmd :around #'hel-jump-command-a))
+
+;;; Commands
+
+(defun +deadgrep-show-result-other-window ()
+  "Show search result at point in another window."
+  (interactive)
+  (unless next-error-follow-minor-mode
+    (hel-recenter-point-on-jump
+      (save-selected-window
+        (deadgrep-visit-result-other-window)
+        (deactivate-mark)))))
+
+(defun +deadgrep-forward-match-show-other-window ()
+  "Move point to next search result and show it in another window."
+  (interactive)
+  (deadgrep-forward-match)
+  (+deadgrep-show-result-other-window))
+
+(defun +deadgrep-backward-match-show-other-window ()
+  "Move point to previous search result and show it in another window."
+  (interactive)
+  (deadgrep-backward-match)
+  (+deadgrep-show-result-other-window))
+
+(provide 'helheim-deadgrep)
+;;; helheim-deadgrep.el ends here
