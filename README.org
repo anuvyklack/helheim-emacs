@@ -7,6 +7,11 @@ This is the realm of Hel
 Helheim is Emacs distributing build around [[https://github.com/anuvyklack/hel][Hel]] package. The original idea behind
 it was a s
 
+#+begin_quote
+*Adwice:* Bind =Caps Lock= to =Esc=, and =Space= to double-action: =Space= on tap and =Ctrl=
+on hold.
+#+end_quote
+
 ** Installation
 
 #+begin_quote

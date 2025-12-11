@@ -1,0 +1,96 @@
+* Search and Completion
+
+A common search and complet functionallity you are expect in modern editor.
+
+** Helheim modules
+
+- =helheim-vertico= ::
+  Configures [[https://github.com/minad/vertico][Vertico]], which turns the Emacs minibuffer into a command-palette
+  analogue.
+
+- =helheim-consult= ::
+  Configures [[https://github.com/minad/consult][Consult]], which provides a set of search-and-preview commands.
+
+- =helheim-deadgrep= ::
+  Configures [[https://github.com/Wilfred/deadgrep][Deadgrep]] — a nice interface to Ripgrep from Emacs.
+
+- =helheim-corfu= ::
+  Configures [[https://github.com/minad/corfu][Corfu]], which provides floating menus for code completion.
+
+- =helheim-embark= ::
+  Configures the [[https://github.com/oantolin/embark][Embark]] package. See below for more details.
+
+** Notable keybindings
+
+A few keybinding highlights from my day-to-day usage, to provide inspiration and
+a smooth start.
+
+- =C-/= (~consult-line~) ::
+  A universal line-by-line search within the current buffer. Mnemonic: =/= is the
+  search key in Hel Normal state (following Vim). Binding it to =C-/= makes it
+  accessable both in editing buffers (in Hel Normal state) and in special
+  buffers (in Hel Motion state).
+
+- =Space /= (~consult-ripgrep~) ::
+  Search in current project with ripgrep and show results in minibuffer.
+  Use =C-c C-c= to export them to ~grep-mode~ buffer.
+
+- =Space s s= (~deadgrep~) ::
+  Search in current project with ripgrep, show results in Deadgrep buffer.
+
+- =C-c C-c= in minibuffer ::
+  With search results in minibuffer export them to regular buffer with
+  appropriate major mode.
+
+- =i= ::
+  In practically all buffers with search result: ~grep-mode~, ~deadgrep-mode~,
+  ~occur-mode~ you can switch to Insert state for editing the results files
+  directly from a search results buffer. To switch back to Motion state use
+  =ZZ= or =zx= or =C-c C-c=.
+
+  The only place where it doesn't work is buffer with Xref results
+  (~xref--xref-buffer-mode~).
+
+- =Space s r= :: Search and replace string literally.
+- =Space s R= :: Search and replace Emacs regexp.
+
+- =C-r= :: Minibuffer history. =C-r= is chosen because it’s the same key used in
+  shells. See also the excellent article: [[https://andreyor.st/posts/2023-10-27-you-dont-need-a-terminal-emulator/]["You don’t need a terminal emulator"]].
+
+** Embark
+
+The Embark package provides context-dependent menus analogous to a mouse
+right-click. Its default configuration is geared toward native Emacs users, whos
+do not have Normal and Insert states, and includes many commands for which Hel
+already provides keybindings.
+
+I really like the idea of using Embark menus for useful but rarely used
+commands. This module therefore mostly cleans up Embark’s keymaps by removing
+commands like "kill region" or "copy region" which Hel already covers.
+
+Which menu Embark shows depends on the target’s category, and the corresponding
+keymaps are stored in ~embark-$category-map~ variables. A good introduction to
+categories can be found in the [[https://github.com/minad/marginalia/#adding-custom-annotators-or-classifiers][Marginalia README]].
+
+Another notable use case for Embark is the minibuffer. You can read an excellent
+article about it here: [[https://karthinks.com/software/fifteen-ways-to-use-embark/][Fifteen ways to use Embark]].
+
+*** Keybindings
+
+- =C-m= (~embark-act~) :: Open the Embark menu. Works everywhere.
+
+  - =C-m c= :: Capitalize the region. I use it very often as a counterpart to =gu=
+    and =gU=.
+
+**** In minibuffer
+
+- =C-c C-c= (~embark-export~) 
+- =C-c C-v= (~embark-collect~)
+- =C-c C-b= (~embark-become~)
+
+The difference between ~embark-export~ and ~embark-collect~ is well explained in
+the [[https://github.com/oantolin/embark?tab=readme-ov-file#working-with-sets-of-possible-targets][Embark README]].
+
+=c=, =v=, =b= keys are choosen because they are next to each other on qwerty layout.
+(The same reason why Emacs uses =M-x=, =C-x= and =C-c=)
+

@@ -6,7 +6,7 @@
 
 ;;; Keybindings
 
-;; <leader> s
+;; <leader> ss — deadgrep entry point
 (hel-keymap-set search-map
   "s" 'deadgrep)
 

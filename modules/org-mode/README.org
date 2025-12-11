@@ -44,8 +44,8 @@ files or folders; just put it into your daily note. If you aren’t using this
 method yet, you’ll find how revealing it is.
 #+end_quote
 
-- =SPC n d= :: Open today’s note.
-
-  With =M-u=, interactively choose a date and open the daily note for that date.
+- =SPC n d= ::
+  Open today’s note. With =M-u=, interactively choose a date and open the daily
+  note for that date.
 
 - =[[= / =]]= :: Open the *previous* / *next* daily note.
