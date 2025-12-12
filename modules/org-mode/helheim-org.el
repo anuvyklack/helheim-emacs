@@ -366,11 +366,16 @@ Like `org-attach' but tuned for Emacs Helheim."
 
 ;;;; org-cliplink
 
+(use-package org-cliplink
+  :ensure t
+  :defer t
+  :custom
+  (org-cliplink-max-length nil)
+  (org-cliplink-ellipsis "…"))
+
 (with-eval-after-load 'org-keys
   (hel-keymap-set org-mode-map
     "<remap> <org-insert-link>" 'helheim-org-insert-link))
-
-(elpaca 'org-cliplink)
 
 ;; Based on https://xenodium.com/emacs-dwim-do-what-i-mean/
 (defun helheim-org-insert-link ()
