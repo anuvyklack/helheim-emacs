@@ -192,8 +192,6 @@
 Modify that section to replace Git's one-letter command abbreviation,
 with the key bindings used in Magit."
   (let ((inhibit-read-only t))
-    ;; (save-excursion
-    ;;   (save-match-data))
     (goto-char (point-min))
     (re-search-forward (concat git-rebase-comment-re "\\s-+Commands:")
                        nil t)
@@ -254,11 +252,7 @@ with the key bindings used in Magit."
              diff-hl-previous-hunk)
   :hook
   (elpaca-after-init-hook . global-diff-hl-mode)
-  (dired-mode-hook . diff-hl-dired-mode)
-  ;; (dired-mode-hook . diff-hl-dired-mode-unless-remote)
-  ;; (vc-dir-mode-hook . turn-on-diff-hl-mode)
-  ;; (diff-hl-mode-hook . diff-hl-flydiff-mode)
-  )
+  (dired-mode-hook . diff-hl-dired-mode))
 
 (use-package magit
   :ensure t
@@ -269,25 +263,6 @@ with the key bindings used in Magit."
   ;; (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   (magit-bury-buffer-function #'magit-restore-window-configuration)
-
-  ;; ;; Don't autosave repo buffers. This is too magical, and saving can
-  ;; ;; trigger a bunch of unwanted side-effects, like save hooks and
-  ;; ;; formatters. Trust the user to know what they're doing.
-  ;; (magit-save-repository-buffers nil)
-
-  ;; ;; Don't display parent/related refs in commit buffers; they are rarely
-  ;; ;; helpful and only add to runtime costs.
-  ;; (magit-revision-insert-related-refs nil)
-
-  ;; ;; If two projects have the same project name (e.g. A/src and B/src will
-  ;; ;; both resolve to the name "src"), Magit will treat them as the same
-  ;; ;; project and destructively hijack each other's magit buffers. This is
-  ;; ;; especially problematic if you use workspaces and have magit open in
-  ;; ;; each, and the two projects happen to have the same name! By unsetting
-  ;; ;; `magit-uniquify-buffer-names', magit uses the project's full path as
-  ;; ;; its name, preventing such naming collisions.
-  ;; (magit-uniquify-buffer-names nil)
-
   :config
   (magit-auto-revert-mode)
 
@@ -296,36 +271,7 @@ with the key bindings used in Magit."
 
   ;; The mode-line isn't useful in these popups and take up valuable screen
   ;; estate, so free it up.
-  (add-hook 'magit-popup-mode-hook #'hide-mode-line-mode)
-
-  ;; ;; Prevent sudden window position resets when staging/unstaging/discarding/etc
-  ;; ;; hunks in `magit-status-mode' buffers. It's disorienting, especially on
-  ;; ;; larger projects.
-  ;; (defvar +magit--refreshed-buffer nil)
-  ;; (add-hook! 'magit-pre-refresh-hook
-  ;;   (defun +magit--set-window-state-h ()
-  ;;     (when (doom-region-active-p)
-  ;;       (setq-local +magit--refreshed-buffer
-  ;;                   (list (current-buffer) (doom-region-beginning) (window-start))))))
-  ;; (add-hook! 'magit-post-refresh-hook
-  ;;   (defun +magit--restore-window-state-h ()
-  ;;     (cl-destructuring-bind (&optional buf pt beg) +magit--refreshed-buffer
-  ;;       (when (and buf (eq (current-buffer) buf))
-  ;;         (goto-char pt)
-  ;;         (set-window-start nil beg t)
-  ;;         (kill-local-variable '+magit--refreshed-buffer)))))
-
-  ;; ;; Add additional switches that seem common enough
-  ;; (transient-append-suffix 'magit-fetch "-p"
-  ;;   '("-t" "Fetch all tags" ("-t" "--tags")))
-  ;; (transient-append-suffix 'magit-pull "-r"
-  ;;   '("-a" "Autostash" "--autostash"))
-
-  ;; ;; Clean up after magit by killing leftover magit buffers and reverting
-  ;; ;; affected buffers (or at least marking them as need-to-be-reverted).
-  ;; (define-key magit-mode-map "q" #'+magit/quit)
-  ;; (define-key magit-mode-map "Q" #'+magit/quit-all)
-)
+  (add-hook 'magit-popup-mode-hook #'hide-mode-line-mode))
 
 ;; project.el integration: Replace VC-dir with Magit
 (with-eval-after-load 'project
