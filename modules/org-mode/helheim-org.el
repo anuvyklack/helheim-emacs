@@ -50,21 +50,6 @@
   (hel-keymap-set dired-mode-map
     "C-c a" 'org-attach-dired-to-subtree))
 
-;; "l a" 'org-node-list-feedback-arcs ; l a for "list arcs"
-;; "l c" 'org-mem-list-db-contents ; l c for "list contents"
-;; "x h" 'org-node-help
-;; "x l" 'org-node-rewrite-links-ask
-;; "x o" 'org-node-customize
-;; "x u" 'org-node-insert-raw-link ;; u for "URL"
-
-;; "d"   'org-node-insert-into-related  ;; d for "drawer".  TODO: Maybe rename?
-;; ;; "e" 'org-node-extract-subtree ;; NOTE: `org-node-refile' does same now.
-;; "m"   'org-node-rename-file-by-title ;; "m" for move
-;; "n"   'org-node-nodeify-entry
-;; "a r" 'org-node-add-refs
-;; "x b" 'org-node-backlink-fix-buffer
-;; "x p" 'org-node-complete-at-point-local-mode
-
 ;;; Config
 
 ;; (elpaca org) ; Install the cutting-edge version instead of the built-in.
@@ -405,18 +390,7 @@ Like `org-attach' but tuned for Emacs Helheim."
            (delete-region (region-beginning) (region-end))
            (insert (org-make-link-string clipboard-url region-content)))
           ((and clipboard-url (not point-at-link))
-           (org-cliplink)
-           ;; (require 'dom)
-           ;; (insert (org-make-link-string
-           ;;          clipboard-url
-           ;;          (read-string "title: "
-           ;;                       (with-current-buffer (url-retrieve-synchronously clipboard-url)
-           ;;                         (dom-text (car
-           ;;                                    (dom-by-tag (libxml-parse-html-region
-           ;;                                                 (point-min)
-           ;;                                                 (point-max))
-           ;;                                                'title)))))))
-           )
+           (org-cliplink))
           (t
            (call-interactively 'org-insert-link)))))
 
