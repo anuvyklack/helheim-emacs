@@ -43,13 +43,12 @@ a smooth start.
   appropriate major mode.
 
 - =i= ::
-  In practically all buffers with search result: ~grep-mode~, ~deadgrep-mode~,
-  ~occur-mode~ you can switch to Insert state for editing the results files
-  directly from a search results buffer. To switch back to Motion state use
-  =ZZ= or =zx= or =C-c C-c=.
+  In practically all buffers with search results: ~grep-mode~, ~deadgrep-mode~,
+  ~occur-mode~, you can switch to Insert state for editing original files directly
+  from a search results buffer. To switch back to Motion state use =ZZ= or =zx= or
+  =C-c C-c=.
 
-  The only place where it doesn't work is buffer with Xref results
-  (~xref--xref-buffer-mode~).
+  The only place where it doesn't work is Xref buffer (~xref--xref-buffer-mode~).
 
 - =Space s r= :: Search and replace string literally.
 - =Space s R= :: Search and replace Emacs regexp.

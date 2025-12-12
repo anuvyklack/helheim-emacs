@@ -1,0 +1,18 @@
+* Modules
+** helheim-emacs-lisp
+
+- =M= :: Show help for the symbol at point.
+
+- =Space e= :: Prefix for Elisp evaluating commands.
+
+** helheim-git
+** helheim-dired
+** helheim-ibuffer
+** helheim-tab-bar
+
+Configure *tab-bar* mode — each tab represents a set of windows (like in Vim).
+
+- =C-w tab= :: Create new tab. With =M-u= detach current window into new tab.
+- =C-w t= :: prefix for tab-bar keys.
+  - =C-w t n= :: Display buffer for next command in new tab.
+  - =C-w t u= :: Reopen last closed tab.

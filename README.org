@@ -38,3 +38,4 @@ to be more bare-boned
 I decided not to reinvent the wheel, Emacs Lisp already has packages
 all Helheim modules are just Emacs packages that you can ~require~ any one you want.
 You are in full controll. Only you decide what is going to =init.el= file.
+

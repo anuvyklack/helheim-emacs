@@ -1,6 +1,7 @@
-#+title: Offline outliner and PKM powered by Org-mode and Hel
+* Offline outliner and PKM powered by Org-mode and Hel
 
-One of the best outliners and personal knowledge management systems on the market.
+Get one of the best outliners and personal knowledge management systems on the
+market.
 - *Offline-first* — all your data belongs only to you.
 - *Unmatched editing* capabilities of any outliner available today.
 - *Org-mode advantages:*
@@ -12,8 +13,29 @@ One of the best outliners and personal knowledge management systems on the marke
 - *Bidirectional links* for seamless navigation.
 - *Daily notes* — you main scratchpad and better "Inbox".
 
-* helheim-org
-** Customization
+** Helheim modules
+*** =helheim-org=
+
+Configure Hel to work with Org mode, [[https://github.com/anuvyklack/hel/blob/main/docs/extensions.org#hel-org][read more about it]].
+
+Org ID format is configured after Denote to be a ISO 8601 timestamp:
+~20250322T131856~ → =year month day T hours minutes seconds=
+
+- =Space l l= :: insert link with DWIM ("do what I mean") behavior:
+  - If URL is in clipboard — use it.
+  - If selection is active — use it as link description.
+  - Automatically fetch URL title from its HTML tag.
+  - Fallback to ~org-insert-link~.
+
+**** Org Attach
+
+- =Space a= in Org mode ::
+  Attach menu. The menu is prettified.
+
+- =Space a= in Dired buffer ::
+  Attach files marked in Dired buffer to a subtree at point in the other window.
+
+**** Customization
 
 - ~helheim-org-heading-padding~ ::
   Add extra padding to Org mode headings to make them more spacious. This is
@@ -23,25 +45,29 @@ One of the best outliners and personal knowledge management systems on the marke
 
   Must be set with ~setopt~ function!
 
-* helheim-org-node
+*** =helheim-org-node=
 
-Install and configure [[https://github.com/meedstrom/org-node][Org-node]].
+Install and configure [[https://github.com/meedstrom/org-node][Org-node]] — an [[https://www.orgroam.com/][Org-roam]] alternative.
 
-** Customization
+Org-node keys are under =Space n= prefics.
+
+- =Space n n= :: Org-node entry point: open or create new node.
+- =Space n b= :: Backlinks buffer.
+
+**** Customization
 
 - ~helheimg-org-node-visit-backlink-in-another-window~ ::
   When set =Enter= in backlinks buffer opens target in another window.
   (defaults: ~nil~)
 
-* helheim-daily-notes
+*** =helheim-daily-notes=
 
-Daily notes is your main scratchpad. Every day you get a clean slate.
-It’s a modern alternative and an evolution of the traditional "Inbox" note.
+This module provides daily notes. A daily note is your main scratchpad: Every
+day you get a clean state. It’s an evolution of the traditional “Inbox” note.
 
 #+begin_quote
-A rule of thumb — if you don’t know where to put a note, don’t think about
-files or folders; just put it into your daily note. If you aren’t using this
-method yet, you’ll find how revealing it is.
+A rule of thumb — if you don’t know where to put a note, don’t think about files
+or folders; just put it into your daily note. You’ll find how revealing it is.
 #+end_quote
 
 - =SPC n d= ::
