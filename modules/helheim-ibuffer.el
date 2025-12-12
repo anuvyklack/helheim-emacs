@@ -1,5 +1,9 @@
 ;;; helheim-ibuffer.el -*- lexical-binding: t -*-
 ;;; Commentary:
+;;
+;; This module adds filter groups for opened projects, enchanced filename
+;; display and sorting.
+;;
 ;;; Code:
 (require 'dash)
 (require 'hel-core)
@@ -18,7 +22,7 @@
 
 (defcustom helheim-ibuffer-format-project-group-name
   (lambda (directory)
-    (format "%s  %s" ;; "%s : %s"
+    (format "%s : %s" ;; "%s  %s"
             (file-name-nondirectory (directory-file-name directory))
             directory))
   "TODO"

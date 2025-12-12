@@ -6,8 +6,37 @@
 - =Space e= :: Prefix for Elisp evaluating commands.
 
 ** helheim-git
+
+- =Space v= :: Prefix for version control functionality evaluating commands.
+
 ** helheim-dired
+
+Dired keys are rebound. But I'm not completely satisfied with the result, so if
+you have better ideas — let me know.
+
+- =Space i= ::
+  Add timestamp based IDs to marked files:
+  #+begin_src
+  some file.txt → 20251212T151618--some file.txt
+  #+end_src
+  The ID is a file creation time formated after ISO 8601 — the same as
+  helheim-org module configured for Org IDs. All this concept is inspired by
+  [[https://protesilaos.com/emacs/denote][Denote]].
+
+- =Space i= ::
+  Add timestamp-based IDs to marked files:
+  #+begin_src
+  some file.txt → 20251212T151618--some file.txt
+  #+end_src
+  The ID is the file’s creation time, formatted according to ISO 8601 — the same
+  format used by the helheim-org module for Org IDs. This whole concept is
+  inspired by [[https://protesilaos.com/emacs/denote][Denote]].
+
 ** helheim-ibuffer
+
+This module adds filter groups for open projects, enhanced filename display,
+and improved sorting.
+
 ** helheim-tab-bar
 
 Configure *tab-bar* mode — each tab represents a set of windows (like in Vim).
