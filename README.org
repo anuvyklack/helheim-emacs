@@ -4,18 +4,70 @@
 This is the realm of Hel
 #+end_quote
 
-Helheim is Emacs distributing build around [[https://github.com/anuvyklack/hel][Hel]] package. The original idea behind
-it was a s
+I wasted an unreasonable amount of time and effort trying to tune other editors
+to myself. It started with Sublime Text, then Atom (which I really liked), then
+VS Code (which I never liked), then Neovim, Emacs + Evil, VS Code again, then
+Doom Emacs. I also tried Helix and Zed. I liked one thing in one editor and
+something else in another.
 
-#+begin_quote
-*Adwice:* Bind =Caps Lock= to =Esc=, and =Space= to double-action: =Space= on tap and =Ctrl=
-on hold.
-#+end_quote
+I want keyboard-driven modal editor, multiple cursors, smooth scrolling, Lisp (I
+would prever Common Lisp, but Emacs Lisp is better then nothing).
+
+Eventually, I decided that enough was enough — its easier to implementing all
+the things I want by myself. After all, if Linus Torvalds can maintain his own
+version of [[https://github.com/torvalds/uemacs][MicroEmacs]], why can’t I?
+
+That’s how Hel and Helheim were born.
+
+So Helheim gains three goals:
+1. Be my editor of the dream;
+2. Be useful to other people to attract more users to Emacs;
+3. Celebrate the power of open source software as an act of pure selfless
+   creation in an era of late capitalism, when it is not customary to do so.
+
+Someone might say that I’m continuing to tune yet another editor — Emacs this
+time — but I would disagree. Emacs is not a text editor; it’s a Lisp machine
+with a terminal emulator (which is unfortunate, since [[https://andreyor.st/posts/2023-07-11-emacs-gui-library/][I would prefer a
+full-fledged GUI]]).
+
+Helheim is a minimal Emacs configuration built around the [[https://github.com/anuvyklack/hel][Hel]] package.
+Currently, Helheim provides basic functionality:
+  - minibuffer, search, and completion
+  - ibuffer
+  - dired
+  - git
+
+It will continue to evolve.
+** Offline outliner and PKM powered by Org-mode and Hel
+
+Get one of the best outliners and personal knowledge management systems on the
+market.
+- *Offline-first* — all your data belongs only to you.
+- *Unmatched editing* capabilities of any outliner available today — none of
+  existing note taking apps provides fully capable Vim emulation not to mention
+  Kakoune of Helix.
+- *Org-mode advantages:*
+  - Rich markup — more powerful and stable than Markdown.
+  - Task management.
+  - The best code snippet support of any outliner.
+  - Tables.
+  - LaTeX as a first-class citizen (like HTML for Markdown).
+- *Bidirectional links* for seamless navigation.
+- *Daily notes* — you main scratchpad and better "Inbox".
 
 ** Installation
 
 #+begin_quote
 GNU Emacs 29.1 or later is required
+#+end_quote
+
+#+begin_quote
+*Adwice:* Bind =Caps Lock= to =Esc=, and =Space= to double-action: =Space= on tap and =Ctrl=
+on hold. You can use any of the following tools:
+- [[https://github.com/jtroo/kanata][kanata]]
+- [[https://github.com/kmonad/kmonad][kmonad]]
+- [[https://github.com/rvaiya/keyd][keyd]] (Linux only)
+- [[https://github.com/pqrs-org/Karabiner-Elements][Karabiner-Elements]] (Mac only)
 #+end_quote
 
 1. Donwload and install "Symbols Nerd Font" from [[https://www.nerdfonts.com/][www.nerdfonts.com]]. This font

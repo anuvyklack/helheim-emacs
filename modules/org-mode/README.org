@@ -1,18 +1,4 @@
 * Offline outliner and PKM powered by Org-mode and Hel
-
-Get one of the best outliners and personal knowledge management systems on the
-market.
-- *Offline-first* — all your data belongs only to you.
-- *Unmatched editing* capabilities of any outliner available today.
-- *Org-mode advantages:*
-  - Rich markup — more powerful and stable than Markdown.
-  - Task management.
-  - The best code snippet support of any outliner.
-  - Tables.
-  - LaTeX as a first-class citizen (like HTML for Markdown).
-- *Bidirectional links* for seamless navigation.
-- *Daily notes* — you main scratchpad and better "Inbox".
-
 ** Helheim modules
 *** =helheim-org=
 
