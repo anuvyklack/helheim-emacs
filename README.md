@@ -43,6 +43,8 @@ Helheim comes with one of the best outliners and personal knowledge management s
 - **Bidirectional links** via [Org-node](https://github.com/meedstrom/org-node)
 - **Daily notes**—your main scratchpad and better "Inbox".
 
+There is a lot of praise for Org mode that I can only agree with. For me, Org mode with bidirectional links (provided by [Org-roam](https://www.orgroam.com/) or [Org-node](https://github.com/meedstrom/org-node)), daily notes, and the ability to [attach files](https://orgmode.org/manual/Attachments.html) to outline nodes divides my life into "before" and "after". For the first time in my life, I have built a reliable and retrievable system for accumulating and processing knowledge, and it has already served me for more than two years — while all previous ones were abandoned within weeks.
+
 ### Ibuffer Done Right
 
 Buffers are grouped intelligently:
