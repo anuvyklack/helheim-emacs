@@ -1,4 +1,4 @@
-;;; helheim-markdown.el -*- lexical-binding: t -*-
+;;; helheim-markdown.el -*- lexical-binding: t; no-byte-compile: t; -*-
 ;;; Keybindings
 
 (with-eval-after-load 'markdown-mode
