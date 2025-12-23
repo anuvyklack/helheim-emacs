@@ -10,16 +10,16 @@
 (use-package deadgrep
   :ensure t
   :defer t
-  :hook
-  (deadgrep-mode-hook . next-error-follow-minor-mode)
+  ;; :hook
+  ;; (deadgrep-mode-hook . next-error-follow-minor-mode)
   :config
   (require 'helheim-deadgrep-keys))
 
-(add-hook 'deadgrep-mode-hook 'helheim-deadgrep-mode-h)
-(defun helheim-deadgrep-mode-h ()
-  ;; TODO: upstream this
-  (setq-local revert-buffer-function (lambda (&rest _)
-                                       (deadgrep-restart))))
+(add-hook 'deadgrep-mode-hook
+          (defun helheim-deadgrep-mode-h ()
+            ;; TODO: upstream this
+            (setq-local revert-buffer-function (lambda (&rest _)
+                                                 (deadgrep-restart)))))
 
 ;; TODO: upstream this
 (dolist (fun '(deadgrep deadgrep-search-term))

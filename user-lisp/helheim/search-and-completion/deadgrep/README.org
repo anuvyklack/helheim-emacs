@@ -1,0 +1,9 @@
+* Automatically show preveiw in other window
+
+If you want a preview in other window follows your moves in deadgrep buffer:
+
+#+begin_src emacs-lisp
+(use-package heleheim-deadgrep
+  :hook
+  (deadgrep-mode-hook . next-error-follow-minor-mode))
+#+end_src
