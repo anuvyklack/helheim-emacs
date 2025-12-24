@@ -27,7 +27,8 @@
   "/" 'consult-ripgrep ; "/" is for search in Hel
   "d" 'dired-jump
   "b" (cons "buffer"
-            (define-keymap
+            (hel-keymap-set (or (keymap-lookup mode-specific-map "b")
+                                (make-sparse-keymap))
               "b" 'ibuffer-jump        ; "<leader> bb"
               "n" 'switch-to-buffer    ; next key after "b"
               "s" 'save-buffer
@@ -42,7 +43,8 @@
               "m" 'bookmark-set
               "M" 'bookmark-delete))
   "f" (cons "file"
-            (define-keymap
+            (hel-keymap-set (or (keymap-lookup mode-specific-map "f")
+                                (make-sparse-keymap))
               "b" 'switch-to-buffer
               "f" 'find-file  ; select file in current dir or create new one
               "/" 'consult-fd ; or `consult-find'
@@ -51,7 +53,8 @@
               "r" '("Recent files" . recentf-open)
               "w" 'write-file))
   "o" (cons "open"
-            (define-keymap
+            (hel-keymap-set (or (keymap-lookup mode-specific-map "o")
+                                (make-sparse-keymap))
               "t" 'treemacs ; from future
               "i" 'imenu-list-smart-toggle))
   "p" (cons "project"
@@ -61,7 +64,8 @@
               "/"   'project-find-regexp
               "B"   'project-list-buffers))
   "t" (cons "toggle"
-            (define-keymap
+            (hel-keymap-set (or (keymap-lookup mode-specific-map "t")
+                                (make-sparse-keymap))
               "w" '("Wrap lines" . +word-wrap-mode)))
   "s" (cons "search"
             (hel-keymap-set search-map

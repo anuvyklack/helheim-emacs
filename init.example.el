@@ -88,13 +88,13 @@
 ;;   You may try it with ": load-theme" then type "leuven".
 (use-package leuven-theme :ensure t)
 
-;;; Helheim modules
+;;; Other modules
 
 (require 'helheim-tab-bar)  ; Each tab represents a set of windows, as in Vim.
 (require 'helheim-xref)     ; Go to defenition framework
 (require 'helheim-ibuffer)  ; Buffers menu
 (require 'helheim-dired)    ; File-manager
-(require 'helheim-git)
+(require 'helheim-git)      ; Magit
 
 (require 'helheim-outline-mode) ; See "Outline Mode" in Emacs manual.
 
