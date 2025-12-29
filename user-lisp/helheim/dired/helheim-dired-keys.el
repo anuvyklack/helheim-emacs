@@ -1,4 +1,4 @@
-;;; helheim-dired-keys.el -*- lexical-binding: t -*-
+;;; helheim-dired-keys.el -*- lexical-binding: t; no-byte-compile: t; -*-
 ;;; Keybindings
 (require 'dired)
 
