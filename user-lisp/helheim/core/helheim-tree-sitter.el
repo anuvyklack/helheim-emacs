@@ -60,6 +60,8 @@
           (zig "https://github.com/tree-sitter-grammars/tree-sitter-zig"
                "v1.1.2")))
   :mode
+  ;; Emacs provides this setting in yaml-ts-mode.el, but it only works after
+  ;; the package is loaded, defeating autoloading. So, we duplicate it here.
   ("\\.ya?ml\\'" . yaml-ts-mode)
   ("clang.format\\'" . yaml-ts-mode))
 
