@@ -125,6 +125,7 @@
     "z k"   'Info-backward-node
     "z u"   'Info-up
     "z d"   'Info-directory
+    "z ~"   'Info-directory ;; ~ for "home"
 
     "z h"   'Info-history
     "u"     'Info-history-back
