@@ -74,6 +74,12 @@
               "r" 'query-replace
               "R" 'query-replace-regexp)))
 
+;;;; Button
+
+(hel-keymap-set button-buffer-map
+  "C-j" 'forward-button
+  "C-k" 'backward-button)
+
 ;;;; Customize
 
 (hel-set-initial-state 'Custom-mode 'normal)
