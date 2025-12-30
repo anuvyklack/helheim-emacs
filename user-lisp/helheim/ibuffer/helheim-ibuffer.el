@@ -234,8 +234,13 @@ BUFFER defaults to the current buffer."
                             `(,(funcall helheim-ibuffer-format-project-group-name dir)
                               (directory . ,(expand-file-name dir))
                               (not (or ,@helheim-ibuffer-not-project-buffer-filters))))))
-               (list '("Files" (or (visiting-file)
-                                   (mode . dired-mode)))))))
+               '(("Notmuch" (mode . (notmuch-hello-mode
+                                     notmuch-search-mode
+                                     notmuch-tree-mode
+                                     notmuch-show-mode
+                                     notmuch-message-mode)))
+                 ("Files" (or (visiting-file)
+                              (mode . dired-mode)))))))
 
 (defun helheim-ibuffer-project-buffers (project &optional files-only)
   "List buffers for PROJECT using Ibuffer.

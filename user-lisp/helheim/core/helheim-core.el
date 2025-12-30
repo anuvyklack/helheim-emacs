@@ -202,7 +202,10 @@ The predicate is passed as argument to `buffer-match-p', which see."
   ;; motion state, and disable it when region is active. In text editing modes
   ;; it interferes with Hel selections.
   (global-hl-line-buffers `(and (or (derived-mode . special-mode)
-                                    (major-mode . dired-mode))
+                                    (major-mode . dired-mode)
+                                    (major-mode . notmuch-search-mode)
+                                    (major-mode . notmuch-tree-mode)
+                                    (major-mode . notmuch-show-mode))
                                 ;; According to my measures, compiled lambda
                                 ;; is two times faster.
                                 ,(native-compile
