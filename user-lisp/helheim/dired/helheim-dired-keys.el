@@ -1,5 +1,7 @@
 ;;; helheim-dired-keys.el -*- lexical-binding: t; no-byte-compile: t; -*-
 ;;; Keybindings
+
+(require 'dash)
 (require 'dired)
 
 ;; "b" key is free

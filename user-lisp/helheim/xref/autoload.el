@@ -6,6 +6,7 @@
 ;;
 ;;; Code:
 
+(require 'dash)
 (require 'xref)
 
 (defun helheim-hook-values (hook)
