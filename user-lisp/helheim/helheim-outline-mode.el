@@ -118,10 +118,10 @@
     ;; else go back to previous heading
     (outline-previous-visible-heading 1))
   (hel-set-region (point)
-                    (progn (outline-end-of-subtree)
-                           (unless (eobp) (forward-char))
-                           (point))
-                    -1 :adjust)
+                  (progn (outline-end-of-subtree)
+                         (unless (eobp) (forward-char))
+                         (point))
+                  -1)
   (hel-reveal-point-when-on-top))
 
 (provide 'helheim-outline-mode)

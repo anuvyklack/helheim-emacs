@@ -71,7 +71,6 @@ already an edit-indirect buffer active overlapping any portion of region, an
   (interactive "P")
   ;; (require 'edit-indirect)
   (unless (use-region-p) (user-error "No region selected"))
-  (hel-restore-newline-at-eol)
   (let ((beg (region-beginning))
         (end (region-end)))
     (deactivate-mark)
