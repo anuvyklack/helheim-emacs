@@ -117,7 +117,6 @@
 (hel-set-initial-state 'Info-mode 'normal)
 
 (with-eval-after-load 'info
-  (hel-inhibit-insert-state Info-mode-map)
   (hel-keymap-set Info-mode-map :state 'normal
     "C-j"   'Info-next
     "C-k"   'Info-prev
@@ -153,7 +152,6 @@
 ;; User may also enable `outline-minor-mode' in a Man buffer, so the keys
 ;; should possibly not interfere with it.
 (with-eval-after-load 'man
-  (hel-inhibit-insert-state Man-mode-map)
   (hel-keymap-set Man-mode-map :state 'normal
     "] ]"   'Man-next-manpage
     "[ ["   'Man-previous-manpage
