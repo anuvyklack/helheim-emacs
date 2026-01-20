@@ -179,30 +179,37 @@ Emacs magic happen.)
 
 ;;;; Highlight current line
 
-;; I want current line highlighting in special modes and don't want in text
-;; editing modes because it interferes with Hel selections. However I use
-;; `global-hl-line-mode' because the local `hl-line-mode' works unreliably: the
-;; highlighting is missing in Ibuffer when you switch to it, and you have to
-;; move the cursor to make it appear. Then it disappears again after auto
-;; revert, and you need to move once more — very annoying.
-(global-hl-line-mode)
+;; `hl-line-mode' was obsoleted in Emacs 31 by the `window' value of
+;; `global-hl-line-sticky-flag' that uses `pre-redisplay-functions'.
+;; (bug#80007)
 
-(setq global-hl-line-sticky-flag t)
+(when (< emacs-major-version 31)
+  (defcustom global-hl-line-buffers nil
+    "Whether the Global HL-Line mode should be enabled in a buffer.
+The predicate is passed as argument to `buffer-match-p', which see."
+    :type '(buffer-predicate :tag "Predicate for `buffer-match-p'"))
+  ;;
+  (define-advice global-hl-line-highlight (:around (orig-fun) helheim)
+    (if (buffer-match-p global-hl-line-buffers (current-buffer))
+        (funcall orig-fun)
+      (global-hl-line-unhighlight))))
 
-(defun helheim-disable-hl-line-mode ()
-  "Disable `global-hl-line-mode' in current buffer."
-  (setq-local global-hl-line-mode nil)
-  (global-hl-line-unhighlight))
-
-(defun helheim-enable-hl-line-mode ()
-  "Re-enable `global-hl-line-mode' in current buffer."
-  ;; (unless (memq major-mode '(calendar-mode)))
-  (setq-local global-hl-line-mode t)
-  ;; (global-hl-line-highlight-all)
-  )
-
-(add-hook 'hel-normal-state-enter-hook #'helheim-disable-hl-line-mode)
-(add-hook 'hel-motion-state-enter-hook #'helheim-enable-hl-line-mode)
+(use-package hl-line
+  :config (global-hl-line-mode)
+  :custom
+  (global-hl-line-sticky-flag 'window) ;; Emacs 31
+  ;; I want current line highlighting only in special modes that are in Hel
+  ;; motion state, and disable it when region is active. In text editing modes
+  ;; it interferes with Hel selections.
+  (global-hl-line-buffers `(and (or (derived-mode . special-mode)
+                                    (major-mode . dired-mode))
+                                ;; According to my measures, compiled lambda
+                                ;; is two times faster.
+                                ,(native-compile
+                                  '(lambda (buffer)
+                                     (with-current-buffer buffer
+                                       (and (eq hel-state 'motion)
+                                            (not (use-region-p)))))))))
 
 ;;;; Display line numbers
 

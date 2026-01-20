@@ -44,10 +44,6 @@
   :config
   (add-hook 'dired-mode-hook #'dired-hide-details-mode)
   (add-hook 'dired-mode-hook #'dired-omit-mode)
-  (add-hook 'dired-mode-hook
-            (defun helheim-dired-hl-line-mode ()
-              (add-hook 'activate-mark-hook #'helheim-disable-hl-line-mode nil t)
-              (add-hook 'deactivate-mark-hook #'helheim-enable-hl-line-mode nil t)))
   (put 'dired-jump 'repeat-map nil))
 
 (use-package wdired
