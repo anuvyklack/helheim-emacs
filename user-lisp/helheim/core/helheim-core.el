@@ -26,8 +26,10 @@
 (elpaca wgrep)
 
 (elpaca avy
-  (setq avy-keys (number-sequence ?a ?z) ;; Any lower-case letter a-z.
-        avy-style 'at-full
+  (setq avy-keys '( ?a ?s ?d ?f ?g ?h ?j ?k ?l    ; home row
+                    ?q ?w ?e ?r ?t ?y ?u ?i ?o ?p ; top row
+                    ?c ?v ?b ?n ?m))    ; bottom row without "z" and "x"
+  (setq avy-style 'at-full
         avy-all-windows nil
         avy-all-windows-alt t
         avy-background t
