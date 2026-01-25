@@ -71,13 +71,16 @@ unconditionally."
              (add-to-list 'load-path file)
              (push file dirs))))
     (unless just-activate
-      (add-hook 'elpaca-after-init-hook
-                (lambda ()
-                  (dolist (file files)
-                    (with-demoted-errors "Error while compiling: %S"
-                      (byte-recompile-file file force 0)
-                      (when (native-comp-available-p)
-                        (native-compile-async file))))))
+      (let ((comp (lambda ()
+                    (dolist (file files)
+                      (with-demoted-errors "Error while compiling: %S"
+                        ;; If `native-comp-jit-compilation' is non-nil,
+                        ;; .elc files will also be compiled to native code
+                        ;; asynchronously.
+                        (byte-recompile-file file force 0))))))
+        (if force
+            (funcall comp)
+          (add-hook 'elpaca-after-init-hook comp)))
       (loaddefs-generate dirs autoload-file nil nil nil force))
     (when (file-exists-p autoload-file)
       (load autoload-file nil t))))
