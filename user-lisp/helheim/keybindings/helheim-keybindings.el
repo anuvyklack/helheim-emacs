@@ -66,7 +66,8 @@
   "t" (cons "toggle"
             (hel-keymap-set (or (keymap-lookup mode-specific-map "t")
                                 (make-sparse-keymap))
-              "w" '("Wrap lines" . +word-wrap-mode)))
+              "w" '("Wrap lines" . +word-wrap-mode)
+              "r" '("Read only" . read-only-mode))) ;; "C-x C-q"
   "s" (cons "search"
             (hel-keymap-set search-map
               "a" 'xref-find-apropos
