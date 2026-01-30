@@ -1,90 +1,174 @@
-;;; helheim-git.el -*- lexical-binding: t; no-byte-compile: t; -*-
+;;; helheim-magit.el -*- lexical-binding: t; no-byte-compile: t; -*-
 ;;; Keybindings
 (require 'hel-core)
 
 ;; Entry points
 (hel-keymap-set mode-specific-map
-  ;; "v" (cons "version control" vc-prefix-map)
-  "v" (cons "version control"
-            (define-keymap
-              "SPC" 'magit-dispatch
-              "RET" 'magit-dispatch
-              "?"   'magit-dispatch
-              "v"   'magit-status
-              "f"   'magit-file-dispatch)))
+  "v RET" 'magit-status
+  "v SPC" 'magit-dispatch
+  "v /"   'magit-dispatch
+  "v ?"   'magit-dispatch
+  "v g"   'magit-status ;; "C-x g"
+  "v h"   'magit-dispatch ;; "h" in magit-status buffer
+  "v f"   'magit-file-dispatch)
 
 (with-eval-after-load 'with-editor
   (hel-keymap-set with-editor-mode-map :state '(normal motion)
     "Z Z" 'with-editor-finish
     "Z Q" 'with-editor-cancel))
 
+;;;; `magit-mode-map' -- common keymap
+
+;; `magit-mode-map' is a common keymap all other magit keymaps are inherited
+;; from.
 (with-eval-after-load 'magit
-  (hel-keymap-set magit-mode-map
-    "i"   nil ;; `magit-gitignore'
-    "g"   nil ;; `magit-refresh'
-    "G"   nil ;; `magit-refresh-all'
-    ":"   nil ;; `magit-git-command'
-    "z"   nil ;; `magit-stash'
-    "C-w" nil
-    "<remap> <next-line>" nil      ;; `magit-next-line'
-    "<remap> <previous-line>" nil) ;; `magit-previous-line'
+  (setq magit-mode-map
+        (define-keymap
+          :parent magit-section-mode-map
+          "<escape>"   (lambda () (interactive) (deactivate-mark))
+          "C-<return>" 'magit-visit-thing
+          "RET"        'magit-visit-thing
+          "M-TAB"      'magit-dired-jump
+          "M-<tab>"    'magit-section-cycle-diffs
+          "SPC"        'magit-diff-show-or-scroll-up
+          "S-SPC"      'magit-diff-show-or-scroll-down
+          "DEL"        'magit-diff-show-or-scroll-down
+          "+"          'magit-diff-more-context
+          "-"          'magit-diff-less-context
+          "0"          'magit-diff-default-context
+          ;; Use the default Hel motion commands instead of `magit-next-line'
+          ;; and `magit-previous-line', because they are surprisingly slow and
+          ;; make little sense, since we have toggle selection on "v".
+          "j"   'next-line
+          "k"   'previous-line
+          "g g" 'beginning-of-buffer
+          "G"   'end-of-buffer
+          ;;
+          "a"   'magit-cherry-apply
+          "A"   'magit-cherry-pick
+          "b"   'magit-branch
+          "B"   'magit-bisect
+          "c"   'magit-commit
+          "C"   'magit-clone
+          "d"   'magit-delete-thing
+          "D"   'magit-file-untrack
+          "e"   'magit-ediff-dwim
+          "E"   'magit-ediff
+          "f"   'magit-fetch
+          "F"   'magit-pull
+          "g r" 'magit-refresh-all
+          "h"   'magit-dispatch
+          "H"   'magit-describe-section
+          ;; "i"   'helheim-magit-text-mode
+          "i"   'magit-gitignore
+          "I"   'magit-init
+          "l"   'magit-log
+          "L"   'magit-log-refresh
+          "m"   'magit-merge
+          "M"   'magit-remote
+          "n"   'magit-show-refs
+          "N"   'magit-cherry
+          "o"   'magit-submodule
+          "O"   'magit-subtree
+          "p"   'magit-push
+          "q"   'magit-mode-bury-buffer
+          "Q"   'magit-git-command
+          "r"   'magit-rebase
+          "R"   'magit-file-rename
+          "s"   'magit-stage-files
+          "S"   'magit-stage-modified
+          "t"   'magit-tag
+          "T"   'magit-notes
+          "u"   'magit-unstage-files
+          "U"   'magit-unstage-all
+          "v"   'helheim-magit-toggle-selection
+          "w"   'magit-am
+          "W"   'magit-patch
+          "x"   'magit-reset-quickly
+          "X"   'magit-reset
+          "y"   'magit-copy-section-value
+          "Y"   'magit-copy-buffer-revision
+          "Z"   'magit-stash
+          "!"   'magit-run
+          ">"   'magit-sparse-checkout
+          "|"   'magit-git-command
+          "?"   'magit-dispatch
+          "$"   'magit-process-buffer
+          "%"   'magit-worktree
+          "/"   'magit-status-quick
+          "C-c C-c" 'magit-dispatch
+          "C-c SPC" 'magit-dispatch ;; <leader><leader>
+          "C-c C-r" 'magit-next-reference
+          "C-c C-e" 'magit-edit-thing
+          "C-c C-o" 'magit-browse-thing
+          "C-c C-w" 'magit-copy-thing
+          ", ," 'magit-display-repository-buffer ;; counterpart to "SPC ,"
+          ", ?" 'magit-describe-section
+          ", d" 'magit-diff
+          ", D" 'magit-diff-refresh
+          ", e" 'magit-edit-thing
+          ", o" 'magit-browse-thing
+          ", x" 'magit-revert-no-commit
+          ", X" 'magit-revert
+          ", y" 'magit-copy-thing ;; it seams it does nothing currently
+          ", z" 'magit-worktree
+          ", n" 'magit-next-reference
+          ", p" 'magit-previous-reference
+          ", N" 'magit-previous-reference
+          "<remap> <mouse-set-point>"     'magit-mouse-set-point
+          "<remap> <back-to-indentation>" 'magit-back-to-indentation)))
 
-  (hel-keymap-set magit-mode-map
-    "C-w p" 'magit-toggle-buffer-lock
-    "SPC" 'magit-dispatch ;; SPC SPC
-    ;; Use the default Hel motion commands instead of `magit-next-line'
-    ;; and `magit-previous-line', because they are surprisingly slow and
-    ;; make little sense, since we have selection on "v".
-    "j"   'next-line
-    "k"   'previous-line
-    ;;                              ;; original key
-    "x"   'magit-delete-thing       ;; "k"
-    "X"   'magit-file-untrack       ;; "K"
-    "-"   'magit-revert-no-commit   ;; "v"
-    "_"   'magit-revert             ;; "V"
-    "p"   'magit-push               ;; "P"
-    "o"   'magit-reset-quickly      ;; "x"
-    "O"   'magit-reset              ;; "X"
-    "I"   'magit-gitignore          ;; "i"
-    "y"   'magit-copy-section-value ;; "C-w"
-    "|"   'magit-git-command        ;; ":"
-    "'"   'magit-submodule          ;; "o"
-    "\""  'magit-subtree            ;; "O"
-    "="   'magit-diff-less-context  ;; "-"
-    "g r" 'magit-refresh            ;; "g"
-    "g R" 'magit-refresh-all        ;; "G"
-    "Z"   'magit-stash              ;; "z"
-    ;; "i"   'helheim-magit-text-mode
-    "v"   'helheim-magit-toggle-selection
-    "<escape>" (lambda ()
-                 (interactive)
-                 (deactivate-mark)))
+;; Repeat keymap
+(with-eval-after-load 'magit-log
+  (setq magit-reference-navigation-repeat-map
+        (define-keymap
+          "p" 'magit-previous-reference
+          "N" 'magit-previous-reference
+          "n" 'magit-next-reference)))
 
-  (hel-keymap-set magit-status-mode-map
-    "g z" 'magit-jump-to-stashes
-    "g t" 'magit-jump-to-tracked
-    "g n" 'magit-jump-to-untracked
-    "g u" 'magit-jump-to-unstaged
-    "g s" 'magit-jump-to-staged
-    "g f" 'magit-jump-to-unpulled-from-upstream
-    "g F" 'magit-jump-to-unpulled-from-pushremote
-    "g p" 'magit-jump-to-unpushed-to-upstream
-    "g P" 'magit-jump-to-unpushed-to-pushremote
-    "j" nil) ;; `magit-status-jump'
+;;;; Magit status buffer
 
-  (hel-keymap-set magit-diff-mode-map
-    "y"   'magit-copy-section-value
-    "g d" 'magit-jump-to-diffstat-or-diff
-    "j"    nil)
+(with-eval-after-load 'magit-status
+  (setq magit-status-mode-map
+        (define-keymap
+          :parent magit-mode-map
+          "<remap> <dired-jump>" 'magit-dired-jump
+          "/"   'magit-status-jump
+          "g z" 'magit-jump-to-stashes
+          "g t" 'magit-jump-to-tracked
+          "g n" 'magit-jump-to-untracked
+          "g s" 'magit-jump-to-staged
+          "g u" 'magit-jump-to-unstaged
+          "g f" 'magit-jump-to-unpulled-from-upstream
+          "g F" 'magit-jump-to-unpulled-from-pushremote
+          "g p" 'magit-jump-to-unpushed-to-upstream
+          "g P" 'magit-jump-to-unpushed-to-pushremote)))
+
+;;;; Magit diff
+
+(with-eval-after-load 'magit-diff
+  (setq magit-diff-mode-map
+        (define-keymap
+          :parent magit-mode-map
+          "C-c C-d" 'magit-diff-while-committing
+          "C-c C-b" 'magit-go-backward
+          "C-c C-f" 'magit-go-forward
+          "C-o"     'magit-go-backward
+          "C-i"     'magit-go-forward
+          "g d"     'magit-jump-to-diffstat-or-diff ;; "j"
+          "<remap> <write-file>" 'magit-patch-save))
 
   (hel-keymap-set magit-diff-section-map
-    "C-j" nil) ;; `magit-diff-visit-worktree-file'
+    ", t" 'magit-diff-trace-definition
+    ", e" 'magit-diff-edit-hunk-commit
+    "C-j" nil)) ;; unbind `magit-diff-visit-worktree-file'
 
+(with-eval-after-load 'magit
   (hel-keymap-set magit-log-mode-map
     "z j" 'magit-go-backward
     "z k" 'magit-go-forward
     "/"   'magit-log-move-to-revision
-    "j"    nil) ;; `magit-log-move-to-revision'
+    "j"    nil) ;; unbind `magit-log-move-to-revision'
 
   (hel-keymap-set magit-blob-mode-map
     "z j" 'magit-blob-next      ;; "n"
@@ -97,9 +181,8 @@
     "z j" 'git-commit-next-message)
 
   (hel-keymap-set magit-revision-mode-map
-    "j" nil ;; `magit-revision-jump'
+    "j" nil ;; unbind `magit-revision-jump'
     "/" 'magit-revision-jump))
-
 
 ;;;; Transient dispatches
 
@@ -126,19 +209,17 @@
 ;;;; Blame
 
 (with-eval-after-load 'magit
+  (add-hook 'magit-blame-mode-hook (defun helheim-magit-blame-h ()
+                                     (if magit-blame-mode
+                                         (hel-motion-state)
+                                       (hel-normal-state))))
   (hel-keymap-set magit-blame-read-only-mode-map
     "y"   'magit-blame-copy-hash
     "j"   'magit-blame-next-chunk
     "k"   'magit-blame-previous-chunk
     "C-j" 'magit-blame-next-chunk-same-commit
     "C-k" 'magit-blame-previous-chunk-same-commit
-    "RET" 'magit-diff-show-or-scroll-up)
-
-  (add-hook 'magit-blame-mode-hook
-            (defun helheim-git-magit-blame-h ()
-              (if magit-blame-mode
-                  (hel-motion-state)
-                (hel-normal-state)))))
+    "RET" 'magit-diff-show-or-scroll-up))
 
 ;;;; Git rebase
 
@@ -200,10 +281,10 @@ with the key bindings used in Magit."
     (re-search-forward (concat git-rebase-comment-re "\\s-+Commands:")
                        nil t)
     (delete-region (point) (point-max))
-    (cl-labels ((key (str)
-                  (propertize str 'font-lock-face 'help-key-binding))
-                (comment (str)
-                  (propertize str 'font-lock-face 'font-lock-comment-face)))
+    (cl-flet ((key (str)
+                (propertize str 'font-lock-face 'help-key-binding))
+              (comment (str)
+                (propertize str 'font-lock-face 'font-lock-comment-face)))
       (-> (list ""
                 (concat (key "M-j") (comment " / ") (key "M-k") (comment " rearrange commits"))
                 (concat (key "p") (comment "  pick <commit> = use commit"))
@@ -264,31 +345,15 @@ with the key bindings used in Magit."
   :init-value nil
   (if helheim-magit-text-mode
       (progn
-        (setq-local helheim-git--previous-magit-mode major-mode)
+        (setq-local helheim-magit--previous-magit-mode major-mode)
         (text-mode))
     ;; else
-    (funcall helheim-git--previous-magit-mode)
-    (setq-local helheim-git--previous-magit-mode nil)
+    (funcall helheim-magit--previous-magit-mode)
+    (setq-local helheim-magit--previous-magit-mode nil)
     (magit-refresh))
   (hel-switch-to-initial-state))
 
 ;;; Config
-
-;; `diff-hl-command-map'
-;; `diff-hl-mode-map'
-(use-package diff-hl
-  :ensure t
-  :commands (diff-hl-stage-current-hunk
-             diff-hl-revert-hunk
-             diff-hl-next-hunk
-             diff-hl-previous-hunk)
-  :hook
-  (elpaca-after-init-hook . global-diff-hl-mode)
-  (dired-mode-hook . diff-hl-dired-mode)
-  ;; (dired-mode-hook . diff-hl-dired-mode-unless-remote)
-  ;; (vc-dir-mode-hook . turn-on-diff-hl-mode)
-  ;; (diff-hl-mode-hook . diff-hl-flydiff-mode)
-  )
 
 (use-package magit
   :ensure t
@@ -322,5 +387,5 @@ with the key bindings used in Magit."
 (elpaca git-modes)
 
 ;;; .
-(provide 'helheim-git)
-;;; helheim-git.el ends here
+(provide 'helheim-magit)
+;;; helheim-magit.el ends here

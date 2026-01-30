@@ -94,8 +94,6 @@
 (require 'helheim-xref)     ; Go to defenition framework
 (require 'helheim-ibuffer)  ; Buffers menu
 (require 'helheim-dired)    ; File-manager
-(require 'helheim-git)      ; Magit
-
 (require 'helheim-outline-mode) ; See "Outline Mode" in Emacs manual.
 
 ;;; Search and completion
@@ -106,9 +104,14 @@
 (require 'helheim-deadgrep) ; Interface to Ripgrep
 (require 'helheim-embark)   ; Context-aware action menus
 
+;;; Major modes
+
+(require 'helheim-emacs-lisp)
+(require 'helheim-markdown)
+
 ;;; Org mode
 
-;; The `org-directory' variable must be set before `helheim-org' loaded!
+;; The `org-directory' variable must be set before `helheim-org' is loaded!
 (setopt org-directory (expand-file-name "~/notes/"))
 
 ;; Which modules to load. Place cursor on variable and press "M" to see
@@ -119,10 +122,10 @@
 (require 'helheim-org-node)
 (require 'helheim-daily-notes)
 
-;;; Major modes
+;;; Version control system
 
-(require 'helheim-emacs-lisp)
-(require 'helheim-markdown)
+(require 'helheim-magit)
+(require 'helheim-diff-hl)
 
 ;;; Keybindings
 

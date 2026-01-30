@@ -72,7 +72,10 @@
             (hel-keymap-set search-map
               "a" 'xref-find-apropos
               "r" 'query-replace
-              "R" 'query-replace-regexp)))
+              "R" 'query-replace-regexp))
+  "v" (cons "version control"
+            (or (keymap-lookup mode-specific-map "v")
+                (make-sparse-keymap))))
 
 ;;;; Button
 

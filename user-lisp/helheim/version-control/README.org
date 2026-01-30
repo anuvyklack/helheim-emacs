@@ -1,0 +1,120 @@
+* helheim-diff-hl
+
+Related keys are under =SPC v= prefix in ~diff-hl-command-map~ keymap.
+
+- =[[= / =]]= :: *Prev* / *Next* hunk
+- =[{= / =]}= :: View *prev* / *next* hunk
+- =[v= / =]v= :: View *prev* / *next* hunk
+- =SPC v v= :: View hunk
+- =SPC v s= :: Stage hunk
+- =SPC v r= :: Revert hunk
+- ~SPC v =~ :: Goto hunk
+
+* helheim-magit
+
+Entry points:
+- =SPC v RET= :: ~magit-status~
+- =SPC v f= :: ~magit-file-dispatch~
+- =SPC v SPC= or =SPC v ?= :: ~magit-dispatch~
+- =SPC v ?= :: ~magit-dispatch~
+
+** Keys common among all Magit buffers
+
+| Helheim  | Magit   | Command                                            |
+|----------+---------+----------------------------------------------------|
+| =j=        | =<down>=  | next line                                          |
+| =k=        | =<up>=    | previous line                                      |
+| =C-j=      | =n=       | ~magit-section-forward~                              |
+| =C-k=      | =p=       | ~magit-section-backward~                             |
+| =a=        | =a=       | ~magit-apply~                                        |
+| =A=        | =A=       | ~magit-cherry-pick~                                  |
+| =b=        | =b=       | ~magit-branch~                                       |
+| =B=        | =B=       | ~magit-bisect~                                       |
+| =c=        | =c=       | ~magit-commit~                                       |
+| =C=        | =C=       | ~magit-commit-add-log~                               |
+| =d=        | =k=       | ~magit-delete-thing~ — discard hunk / delete brunch |
+| =D=        | =K=       | ~magit-file-untrack~                                 |
+| =e=        | =e=       | ~magit-ediff-dwim~                                   |
+| =E=        | =E=       | ~magit-ediff~                                        |
+| =f=        | =f=       | ~magit-fetch~                                        |
+| =F=        | =F=       | ~magit-pull~                                         |
+| =h= or =?=   | =h= or =?=  | ~magit-dispatch~                                     |
+| =i=        | =i=       | ~magit-gitignore~                                    |
+| =I=        | =I=       | ~magit-init~                                         |
+| =l=        | =l=       | ~magit-log~                                          |
+| =L=        | =L=       | ~magit-log-refresh~                                  |
+| =m=        | =m=       | ~magit-merge~                                        |
+| =M=        | =M=       | ~magit-remote~                                       |
+| =n=        | =y=       | ~magit-show-refs~                                    |
+| =N=        | =Y=       | ~magit-cherry~                                       |
+| =o=        | =o=       | ~magit-submodule~                                    |
+| =O=        | =O=       | ~magit-subtree~                                      |
+| =p=        | =P=       | ~magit-push~                                         |
+| =q=        | =q=       | ~magit-mode-bury-buffer~                             |
+| =Q= or =ǀ=   | =Q= or =:=  | ~magit-git-command~                                  |
+| =r=        | =r=       | ~magit-rebase~                                       |
+| =R=        | =R=       | ~magit-file-rename~                                  |
+| =s=        | =s=       | ~magit-stage~                                        |
+| =S=        | =S=       | ~magit-stage-modified~                               |
+| =t=        | =t=       | ~magit-tag~                                          |
+| =T=        | =T=       | ~magit-notes~                                        |
+| =u=        | =u=       | ~magit-unstage~                                      |
+| =U=        | =U=       | ~magit-unstage-all~                                  |
+| =v=        | =C-SPC=   | toggle selection                                   |
+| =w=        | =w=       | ~magit-am~                                           |
+| =W=        | =W=       | ~magit-patch~                                        |
+| =x=        | =x=       | ~magit-reset-quickly~                                |
+| =X=        | =X=       | ~magit-reset~                                        |
+| =y=        | =C-w=     | ~magit-copy-section-value~                           |
+| =Y=        | =M-w=     | ~magit-copy-buffer-revision~                         |
+| =Z=        | =z=       | ~magit-stash~                                        |
+| =/=        | =j=       | ~magit-status-quick~                                 |
+| =$=        | =$=       | ~magit-process-buffer~                               |
+| =!=        | =!=       | ~magit-run~                                          |
+| =>=        | =>=       | ~magit-sparse-checkout~                              |
+| =C-w r=    | =g=       | ~magit-refresh~                                      |
+| =g r=      | =G=       | ~magit-refresh-all~                                  |
+| =SPC SPC=  | =C-c C-c= | ~magit-dispatch~                                     |
+| =,,=       | =J=       | ~magit-display-repository-buffer~                    |
+| =,?= or =H=  | =H=       | ~magit-describe-section~                             |
+| =,d=       | =d=       | ~magit-diff~                                         |
+| =,D=       | =D=       | ~magit-diff-refresh~                                 |
+| =,e=       | =C-c C-e= | ~magit-edit-thing~                                   |
+| =,n=       | =C-c C-r= | ~magit-next-reference~                               |
+| =,o=       | =C-c C-o= | ~magit-browse-thing~                                 |
+| =,p= or =,N= |         | ~magit-previous-reference~                           |
+| =,y=       | =C-c C-w= | ~magit-copy-thing~                                   |
+| =,x=       | =v=       | ~magit-reverse~                                      |
+| =,X=       | =V=       | ~magit-revert~                                       |
+| =,z= or =%=  | =Z= or =%=  | ~magit-worktree~                                     |
+
+** Status buffer (~magit-status-mode-map~)
+
+| Helheim | Magit | Command                                |
+| =/=       | =j=     | ~magit-status-jump~                      |
+| =gz=      |       | ~magit-jump-to-stashes~                  |
+| =gt=      |       | ~magit-jump-to-tracked~                  |
+| =gn=      |       | ~magit-jump-to-untracked~                |
+| =gs=      |       | ~magit-jump-to-staged~                   |
+| =gu=      |       | ~magit-jump-to-unstaged~                 |
+| =gf=      |       | ~magit-jump-to-unpulled-from-upstream~   |
+| =gF=      |       | ~magit-jump-to-unpulled-from-pushremote~ |
+| =gp=      |       | ~magit-jump-to-unpushed-to-upstream~     |
+| =gP=      |       | ~magit-jump-to-unpushed-to-pushremote~   |
+
+*** Sections
+
+The ~magit-file-section-map~ and ~magit-hunk-section-map~ keymaps are inherited
+from ~magit-diff-section-map~.
+
+| Helheim | Magit   | Command                        |
+| =C-RET=   | =C-RET=   | ~magit-diff-visit-worktree-file~ |
+| =,t=      | =C-c C-t= | ~magit-diff-trace-definition~    |
+| =,e=      | =C-c C-e= | ~magit-diff-edit-hunk-commit~    |
+
+** Diff buffer (~magit-diff-mode-map~)
+
+| Helheim | Magit   | Command                        |
+| =g d=     | =j=       | ~magit-jump-to-diffstat-or-diff~ |
+| =C-o=     | =C-c C-b= | ~magit-go-backward~              |
+| =C-i=     | =C-c C-f= | ~magit-go-forward~               |

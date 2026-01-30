@@ -17,7 +17,3 @@ Configure *tab-bar* mode — each tab represents a set of windows (like in Vim).
   - =C-w t n= :: Display buffer for next command in new tab.
   - =C-w t u= :: Reopen last closed tab.
 
-** helheim-git
-
-- =Space v= :: Prefix for version control commands.
-
